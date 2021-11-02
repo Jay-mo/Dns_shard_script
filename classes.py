@@ -4,12 +4,14 @@ import libraries
 import itertools
 from tabulate import tabulate
 
+#define class for basic server
 class Server:
     def __init__(self, server_name) -> None:
         self.server_name = server_name
         self.server_ip = None
 
 
+#define class that will be used to create meraki shard objects
 class MerakiShard(Server):
 
     domain = 'meraki.com'
@@ -27,6 +29,11 @@ class MerakiShard(Server):
         dns_response = dns.resolver.query(self.meraki_shard_name, 'A')
         return [ ip.address for ip in dns_response ]
 
+
+    @property
+    def meraki_shard_ipv6(self):
+        dns_response = dns.resolver.query(self.meraki_shard_name, 'AAAA')
+        return [ ip.address for ip in dns_response ]
 
     # @staticmethod
     # def get_all_meraki_shards():
@@ -46,23 +53,17 @@ class MerakiMethods:
 
         for i in itertools.count(start=1):
             server_name = cls.server_prefix + str(i)
-            # print (cls.domain)
-            # server_url = server_name + cls.domain
 
             shard = MerakiShard(server_name)
 
             try:
                 server_public_ipv4 = shard.meraki_shard_ipv4[0]
+                server_public_ipv6 = shard.meraki_shard_ipv6[0]
 
                 server_url = shard.meraki_shard_name
 
-
-                #print (f'Meraki shard {server_url} has a public ipv4 address of {*server_public_ipv4,}')
-
-                table = [[server_url, server_public_ipv4]]
-                headers=["Meraki Shard", "IPv4 Address"]
-
-                #print(table)
+                table = [[server_url, server_public_ipv4, server_public_ipv6]]
+                headers=["Meraki Shard", "IPv4 Address", "IPv6 Address"]
 
                 if i == 1:
 
@@ -93,16 +94,12 @@ class MerakiMethods:
 
         try:
             server_public_ipv4 = shard.meraki_shard_ipv4[0]
+            server_public_ipv6 = shard.meraki_shard_ipv6[0]
 
             server_url = shard.meraki_shard_name
 
-
-            #print (f'Meraki shard {server_url} has a public ipv4 address of {*server_public_ipv4,}')
-
-            table = [[server_url, server_public_ipv4]]
-            headers=["Meraki Shard", "IPv4 Address"]
-
-            #print(table)
+            table = [[server_url, server_public_ipv4, server_public_ipv6]]
+            headers=["Meraki Shard", "IPv4 Address", "IPv6 Address"]
 
             print (tabulate(table, headers, tablefmt="grid"))
 
