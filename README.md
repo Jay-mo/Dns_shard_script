@@ -1,6 +1,6 @@
 # Dns_shard_script
 
- Python script to query Meraki Shards
+ A python script to query Meraki Shards
 
 ## Usage
 
@@ -25,3 +25,8 @@ python index.py --shard 1
 +----------------+----------------+
 ```
 
+For help 
+
+```python
+python index.py --help
+```
