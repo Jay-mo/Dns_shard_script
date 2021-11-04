@@ -2,6 +2,7 @@
 
  A python script to query Meraki Shards
 
+
 ## Usage
 
 This will print all the available meraki shards
@@ -25,8 +26,26 @@ python index.py --shard 1
 +----------------+----------------+-------------------------------------+
 ```
 
+
 For help 
 
 ```python
 python index.py --help
+```
+
+
+
+### Modules needed
+This script requires the following python modules
+
+click
+
+dnspython
+
+
+install them using pip
+
+```python
+pip install click
+pip install dnspython
 ```
