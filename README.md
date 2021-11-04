@@ -42,10 +42,12 @@ click
 
 dnspython
 
+tabulate
 
 install them using pip
 
 ```python
 pip install click
 pip install dnspython
+pip install tabulate
 ```
